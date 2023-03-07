@@ -42,6 +42,7 @@ public class RobotContainer {
     public final GearShift m_gearShift = new GearShift();
     public final AirCompressor m_airCompressor = new AirCompressor();
     public final PnuematicClaw m_pnuematicClaw = new PnuematicClaw();
+    public final NavX m_navX = new NavX();
     public final DriveTrain m_driveTrain = new DriveTrain();
 
 // Joysticks
