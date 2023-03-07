@@ -31,15 +31,81 @@ Children:
         validators: null
         value: []
       Default Command: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
-        name: Default Command, type: Command, validators: null, value: RunExtension}
+        name: Default Command, type: Command, validators: null, value: None}
       Constants: !!robotbuilder.data.properties.ConstantsProperty
         default: []
         name: Constants
         validators: null
         value: []
     Base: Subsystem
-    Name: ArmExtension
-  - Children: []
+    Name: NavX
+  - Children:
+    - Children: []
+      Properties:
+        Forward Module (Solenoid): !!robotbuilder.data.properties.ChoicesProperty
+          choices: &id002 ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10',
+            '11', '12', '13', '14', '15', '16', '17', '18', '19', '20']
+          default: '0'
+          name: Forward Module (Solenoid)
+          validators: &id003 [Solenoid]
+          value: '0'
+        Reverse Channel (Solenoid): !!robotbuilder.data.properties.ChoicesProperty
+          choices: &id004 ['0', '1', '2', '3', '4', '5', '6', '7']
+          default: '0'
+          name: Reverse Channel (Solenoid)
+          validators: null
+          value: '0'
+        Forward Module Type (Solenoid): !!robotbuilder.data.properties.ChoicesProperty
+          choices: &id005 [CTREPCM, REVPH]
+          default: CTREPCM
+          name: Forward Module Type (Solenoid)
+          validators: null
+          value: CTREPCM
+        Forward Channel (Solenoid): !!robotbuilder.data.properties.ChoicesProperty
+          choices: &id006 ['0', '1', '2', '3', '4', '5', '6', '7']
+          default: '0'
+          name: Forward Channel (Solenoid)
+          validators: &id007 [Solenoid]
+          value: '1'
+      Base: Double Solenoid
+      Name: Double Solenoid 1
+    Properties:
+      Send to SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: false,
+        name: Send to SmartDashboard, validators: null, value: false}
+      Default command parameters: !!robotbuilder.data.properties.ParametersProperty
+        default: []
+        name: Default command parameters
+        validators: null
+        value:
+        - !!robotbuilder.data.properties.ValuedParameterDescriptor {name: CloseClaw,
+          type: boolean, value: 'false'}
+      Default Command: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
+        name: Default Command, type: Command, validators: null, value: RunClaw}
+      Constants: !!robotbuilder.data.properties.ConstantsProperty
+        default: []
+        name: Constants
+        validators: null
+        value: &id001 []
+    Base: Subsystem
+    Name: PnuematicClaw
+  - Children:
+    - Children: []
+      Properties:
+        Module ID: !!robotbuilder.data.properties.ChoicesProperty
+          choices: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11',
+            '12', '13', '14', '15', '16', '17', '18', '19', '20']
+          default: '0'
+          name: Module ID
+          validators: [CompID]
+          value: '0'
+        Module Type: !!robotbuilder.data.properties.ChoicesProperty
+          choices: [CTREPCM, REVPH]
+          default: CTREPCM
+          name: Module Type
+          validators: null
+          value: CTREPCM
+      Base: Compressor
+      Name: Compressor 1
     Properties:
       Send to SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: false,
         name: Send to SmartDashboard, validators: null, value: false}
@@ -49,14 +115,62 @@ Children:
         validators: null
         value: []
       Default Command: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
-        name: Default Command, type: Command, validators: null, value: RunFourBar}
+        name: Default Command, type: Command, validators: null, value: CompressorOn}
       Constants: !!robotbuilder.data.properties.ConstantsProperty
         default: []
         name: Constants
         validators: null
-        value: []
+        value: *id001
     Base: Subsystem
-    Name: FourBar
+    Name: AirCompressor
+  - Children:
+    - Children: []
+      Properties:
+        Forward Module (Solenoid): !!robotbuilder.data.properties.ChoicesProperty
+          choices: *id002
+          default: '0'
+          name: Forward Module (Solenoid)
+          validators: *id003
+          value: '0'
+        Reverse Channel (Solenoid): !!robotbuilder.data.properties.ChoicesProperty
+          choices: *id004
+          default: '0'
+          name: Reverse Channel (Solenoid)
+          validators: null
+          value: '3'
+        Forward Module Type (Solenoid): !!robotbuilder.data.properties.ChoicesProperty
+          choices: *id005
+          default: CTREPCM
+          name: Forward Module Type (Solenoid)
+          validators: null
+          value: CTREPCM
+        Forward Channel (Solenoid): !!robotbuilder.data.properties.ChoicesProperty
+          choices: *id006
+          default: '0'
+          name: Forward Channel (Solenoid)
+          validators: *id007
+          value: '2'
+      Base: Double Solenoid
+      Name: Double Solenoid 2
+    Properties:
+      Send to SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: false,
+        name: Send to SmartDashboard, validators: null, value: false}
+      Default command parameters: !!robotbuilder.data.properties.ParametersProperty
+        default: []
+        name: Default command parameters
+        validators: null
+        value:
+        - !!robotbuilder.data.properties.ValuedParameterDescriptor {name: buttonToggled,
+          type: boolean, value: 'false'}
+      Default Command: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
+        name: Default Command, type: Command, validators: null, value: ShiftGear}
+      Constants: !!robotbuilder.data.properties.ConstantsProperty
+        default: []
+        name: Constants
+        validators: null
+        value: *id001
+    Base: Subsystem
+    Name: GearShift
   Properties: {}
   Base: Subsystems
   Name: Subsystems
@@ -64,20 +178,10 @@ Children:
   - Children: []
     Properties:
       Number: !!robotbuilder.data.properties.ChoicesProperty
-        choices: &id001 ['0', '1', '2', '3', '4', '5']
+        choices: ['0', '1', '2', '3', '4', '5']
         default: 1
         name: Number
-        validators: &id002 [Joystick]
-        value: '1'
-    Base: Xbox Controller
-    Name: auxController
-  - Children: []
-    Properties:
-      Number: !!robotbuilder.data.properties.ChoicesProperty
-        choices: *id001
-        default: 1
-        name: Number
-        validators: *id002
+        validators: [Joystick]
         value: '0'
     Base: Xbox Controller
     Name: driverController
@@ -119,28 +223,6 @@ Children:
       Run When Disabled: !!robotbuilder.data.properties.BooleanProperty {default: false,
         name: Run When Disabled, validators: null, value: false}
       Requires: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
-        name: Requires, type: Subsystem, validators: null, value: ArmExtension}
-      Parameter presets: !!robotbuilder.data.properties.ParameterSetProperty
-        default: []
-        name: Parameter presets
-        validators: null
-        value: []
-      Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: true,
-        name: Button on SmartDashboard, validators: null, value: true}
-    Base: Command
-    Name: RunExtension
-  - Children: []
-    Properties:
-      Autonomous Selection: !!robotbuilder.data.properties.BooleanProperty {default: false,
-        name: Autonomous Selection, validators: null, value: false}
-      Parameters: !!robotbuilder.data.properties.ParametersProperty
-        default: []
-        name: Parameters
-        validators: null
-        value: []
-      Run When Disabled: !!robotbuilder.data.properties.BooleanProperty {default: false,
-        name: Run When Disabled, validators: null, value: false}
-      Requires: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
         name: Requires, type: Subsystem, validators: null, value: DriveTrain}
       Parameter presets: !!robotbuilder.data.properties.ParameterSetProperty
         default: []
@@ -163,16 +245,63 @@ Children:
       Run When Disabled: !!robotbuilder.data.properties.BooleanProperty {default: false,
         name: Run When Disabled, validators: null, value: false}
       Requires: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
-        name: Requires, type: Subsystem, validators: null, value: FourBar}
+        name: Requires, type: Subsystem, validators: null, value: AirCompressor}
       Parameter presets: !!robotbuilder.data.properties.ParameterSetProperty
-        default: &id003 []
+        default: []
         name: Parameter presets
         validators: null
-        value: *id003
+        value: []
       Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: true,
         name: Button on SmartDashboard, validators: null, value: true}
     Base: Command
-    Name: RunFourBar
+    Name: CompressorOn
+  - Children: []
+    Properties:
+      Autonomous Selection: !!robotbuilder.data.properties.BooleanProperty {default: false,
+        name: Autonomous Selection, validators: null, value: false}
+      Parameters: !!robotbuilder.data.properties.ParametersProperty
+        default: []
+        name: Parameters
+        validators: null
+        value:
+        - !!robotbuilder.data.properties.ParameterDescriptor {name: buttonToggled,
+          type: boolean}
+      Run When Disabled: !!robotbuilder.data.properties.BooleanProperty {default: false,
+        name: Run When Disabled, validators: null, value: false}
+      Requires: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
+        name: Requires, type: Subsystem, validators: null, value: GearShift}
+      Parameter presets: !!robotbuilder.data.properties.ParameterSetProperty
+        default: []
+        name: Parameter presets
+        validators: null
+        value: []
+      Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: true,
+        name: Button on SmartDashboard, validators: null, value: false}
+    Base: Command
+    Name: ShiftGear
+  - Children: []
+    Properties:
+      Autonomous Selection: !!robotbuilder.data.properties.BooleanProperty {default: false,
+        name: Autonomous Selection, validators: null, value: false}
+      Parameters: !!robotbuilder.data.properties.ParametersProperty
+        default: []
+        name: Parameters
+        validators: null
+        value:
+        - !!robotbuilder.data.properties.ParameterDescriptor {name: CloseClaw, type: boolean}
+      Run When Disabled: !!robotbuilder.data.properties.BooleanProperty {default: false,
+        name: Run When Disabled, validators: null, value: false}
+      Requires: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
+        name: Requires, type: Subsystem, validators: null, value: PnuematicClaw}
+      Parameter presets: !!robotbuilder.data.properties.ParameterSetProperty
+        default: []
+        name: Parameter presets
+        validators: null
+        value: []
+      Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: true,
+        name: Button on SmartDashboard, validators: null, value: false}
+    Base: Command
+    Name: RunClaw
   Properties: {}
   Base: Commands
   Name: Commands
@@ -194,9 +323,9 @@ Properties:
       Number, validators: null, value: 5509}
   Export Subsystems: !!robotbuilder.data.properties.BooleanProperty {default: true,
     name: Export Subsystems, validators: null, value: true}
-  Wiring file location: !!robotbuilder.data.properties.FileProperty {default: 'C:\Users\Robotics\',
+  Wiring file location: !!robotbuilder.data.properties.FileProperty {default: 'C:\Users\Kanar\',
     extension: null, folder: true, name: Wiring file location, validators: null, value: 'C:\Users\Kanar\'}
-  Export Directory: !!robotbuilder.data.properties.FileProperty {default: 'C:\Users\Robotics\FRCProjects',
+  Export Directory: !!robotbuilder.data.properties.FileProperty {default: 'C:\Users\Kanar\FRCProjects',
     extension: null, folder: true, name: Export Directory, validators: null, value: ..\}
   Autonomous Command: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
     name: Autonomous Command, type: Command, validators: null, value: Autonomous Command}
