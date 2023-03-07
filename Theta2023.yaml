@@ -178,13 +178,23 @@ Children:
   - Children: []
     Properties:
       Number: !!robotbuilder.data.properties.ChoicesProperty
-        choices: ['0', '1', '2', '3', '4', '5']
+        choices: &id008 ['0', '1', '2', '3', '4', '5']
         default: 1
         name: Number
-        validators: [Joystick]
+        validators: &id009 [Joystick]
         value: '0'
     Base: Xbox Controller
     Name: driverController
+  - Children: []
+    Properties:
+      Number: !!robotbuilder.data.properties.ChoicesProperty
+        choices: *id008
+        default: 1
+        name: Number
+        validators: *id009
+        value: '1'
+    Base: Xbox Controller
+    Name: auxController
   Properties: {}
   Base: OI
   Name: Operator Interface
