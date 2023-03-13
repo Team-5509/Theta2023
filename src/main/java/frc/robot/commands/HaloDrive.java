@@ -66,8 +66,8 @@ public class HaloDrive extends CommandBase {
 
 
         double finesse = 1;
-        double leftSpeed = RobotContainer.getInstance().getdriverController().getRawAxis(5);
-        double rightSpeed = RobotContainer.getInstance().getdriverController().getRawAxis(1);
+        double leftSpeed = RobotContainer.getInstance().getdriverController().getRawAxis(1);
+        double rightSpeed = RobotContainer.getInstance().getdriverController().getRawAxis(5);
 
         double deadband = 0.3;
         if (Math.abs(leftSpeed) < 

@@ -61,7 +61,7 @@ public class RunExtension extends CommandBase {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        double speed = RobotContainer.getInstance().getauxController().getRawAxis(1);
+        double speed = RobotContainer.getInstance().getauxController().getRawAxis(5);
         if (endSwitch.get() && speed>0 || startSwitch.get() && speed<0){ //+ speed extends
             m_armExtension.extend(0);
 
