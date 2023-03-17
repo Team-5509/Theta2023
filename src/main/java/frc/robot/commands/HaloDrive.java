@@ -62,16 +62,15 @@ public class HaloDrive extends CommandBase {
     
     public void drive() {
 
-
+        SmartDashboard.putBoolean("driving", true);
 
 
         double finesse = 1;
         double leftSpeed = RobotContainer.getInstance().getdriverController().getRawAxis(1);
         double rightSpeed = RobotContainer.getInstance().getdriverController().getRawAxis(5);
 
-        double deadband = 0.3;
-        if (Math.abs(leftSpeed) < 
-        deadband)
+        double deadband = 0.2;
+        if (Math.abs(leftSpeed) < deadband)
         {
             leftSpeed = 0;
         }
@@ -79,12 +78,12 @@ public class HaloDrive extends CommandBase {
         { 
             rightSpeed = 0;
         }
-        XboxController m_hid = new XboxController(0);
-        m_hid.setRumble(GenericHID.RumbleType.kBothRumble, 1.0);
+        //XboxController m_hid = new XboxController(0);
+        //m_hid.setRumble(GenericHID.RumbleType.kBothRumble, 1.0);
             
         
             
-        // This will delineratise the driving
+        // This will delinearize the driving
         int exponent = 3;
         rightSpeed = Math.pow(rightSpeed , exponent);
         leftSpeed = Math.pow(leftSpeed , exponent);
@@ -115,7 +114,8 @@ public class HaloDrive extends CommandBase {
 
     @Override
     public void execute() {
-
+        drive();
+      /* 
         SmartDashboard.putBoolean("self level activated", RobotContainer.getInstance().getdriverController().getRightBumper());
         if(RobotContainer.getInstance().getdriverController().getRightBumper())
         {
@@ -124,7 +124,7 @@ public class HaloDrive extends CommandBase {
         else{
             drive();
         }
-            
+            */
     
     }
             
