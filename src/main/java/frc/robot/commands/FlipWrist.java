@@ -66,10 +66,10 @@ public class FlipWrist extends CommandBase {
         boolean down = RobotContainer.getInstance().getauxController().getLeftBumper();
 
         if(up){
-            speed = .2;
+            speed = .9;
         }
         if(down){
-            speed = -.1;
+            speed = -.5;
         }
         
         SmartDashboard.putBoolean("up wrist", up);
