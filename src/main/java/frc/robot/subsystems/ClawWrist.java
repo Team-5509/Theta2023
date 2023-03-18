@@ -46,8 +46,8 @@ public class ClawWrist extends SubsystemBase {
 
     private WPI_TalonSRX wrist; 
     public ClawWrist() {
-        wrist.configFactoryDefault();
-        wrist = new WPI_TalonSRX(0);
+        //wrist.configFactoryDefault();
+        wrist = new WPI_TalonSRX(5);
         wrist.setNeutralMode(NeutralMode.Brake);
         
         //wrist.getSelectedSensorPosition();
@@ -70,6 +70,11 @@ public class ClawWrist extends SubsystemBase {
 
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
+
+    public void manualWrist(double wristInput){
+        wrist.set(wristInput);
+    }
+
     public void runWrist(double wristInput){
         if (wrist.getSelectedSensorPosition() >= wristTicksMax && wristInput > 0 
         || 

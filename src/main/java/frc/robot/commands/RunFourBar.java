@@ -63,11 +63,10 @@ public class RunFourBar extends CommandBase {
     @Override
     public void execute() {
         double speed = RobotContainer.getInstance().getauxController().getRawAxis(1);
-        if(endSwitch.get() && speed>0 || startSwitch.get() && speed<0){
-            m_fourBar.extend(0);
-        } else {
+        speed *= .7;
+
             m_fourBar.extend(speed); 
-        }
+        
     }
 
     // Called once the command ends or is interrupted.
