@@ -65,7 +65,7 @@ public class RunExtension extends CommandBase {
     public void execute() {
         double stickInput = RobotContainer.getInstance().getauxController().getRawAxis(5);
 
-        double speed = 0.2;
+        double speed = 0.4;
 if(stickInput < 0){
     speed *= -1;
 }

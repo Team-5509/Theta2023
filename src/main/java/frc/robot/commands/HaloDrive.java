@@ -65,6 +65,12 @@ public class HaloDrive extends CommandBase {
         SmartDashboard.putBoolean("driving", true);
 
 
+    //directional pad adjustments
+        SmartDashboard.putNumber("POV", RobotContainer.getInstance().getdriverController().getPOV());
+        int pov = RobotContainer.getInstance().getdriverController().getPOV();
+
+        
+
         double finesse = 1;
         double leftSpeed = RobotContainer.getInstance().getdriverController().getRawAxis(1);
         double rightSpeed = RobotContainer.getInstance().getdriverController().getRawAxis(5);
@@ -84,12 +90,28 @@ public class HaloDrive extends CommandBase {
         
             
         // This will delinearize the driving
-        int exponent = 3;
+        int exponent = 5;
         rightSpeed = Math.pow(rightSpeed , exponent);
         leftSpeed = Math.pow(leftSpeed , exponent);
 
+        SmartDashboard.putNumber("left trigger", RobotContainer.getInstance().getdriverController().getLeftTriggerAxis());
             
-        if (RobotContainer.getInstance().getdriverController().getXButton()){finesse = .5;}  
+//right arrow turns right, left arrow turns left
+
+        //right if the dpad (pov) is top left, middle left, or bottom left
+        if(pov > 40  && pov < 140){
+            leftSpeed = .3;
+            rightSpeed = -.3;
+            
+            //left if the dpad (pov) is top right, middle right, or bottom right
+        }else if(pov > 220 && pov < 275){
+            leftSpeed = -.3;
+            rightSpeed = .3;
+        }
+
+
+
+        if (RobotContainer.getInstance().getdriverController().getLeftTriggerAxis() > 0.2){finesse = .5;}  
         leftSpeed *= finesse;
         rightSpeed *= finesse;
         m_driveTrain.driveTank(leftSpeed, rightSpeed);
