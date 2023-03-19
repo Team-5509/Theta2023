@@ -63,7 +63,7 @@ public class RunFourBar extends CommandBase {
     @Override
     public void execute() {
         double speed = RobotContainer.getInstance().getauxController().getRawAxis(1);
-        speed *= .7;
+       // speed *= .9;
 
             m_fourBar.extend(speed); 
         

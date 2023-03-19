@@ -95,13 +95,14 @@ public class DriveTrain extends SubsystemBase {
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
     public void driveTank(double leftSpeed, double rightSpeed){
-        firstDifferentialDrive.tankDrive(leftSpeed, rightSpeed);
-        secondDifferentialDrive.tankDrive(leftSpeed, rightSpeed);
+        firstDifferentialDrive.arcadeDrive(leftSpeed, rightSpeed);
+        secondDifferentialDrive.arcadeDrive(leftSpeed, rightSpeed);
     }
-    public void driveArcade(double xSpeed, double rotation){
-        firstDifferentialDrive.arcadeDrive(xSpeed, rotation);
-        secondDifferentialDrive.arcadeDrive(xSpeed, rotation);
+    public void driveArcade(double leftSpeed, double rotationSpeed){
+        firstDifferentialDrive.arcadeDrive(leftSpeed, rotationSpeed);
+        secondDifferentialDrive.arcadeDrive(leftSpeed, rotationSpeed);
     }
+
     public void stop(){
         firstDifferentialDrive.tankDrive(0, 0);
         secondDifferentialDrive.tankDrive(0, 0);

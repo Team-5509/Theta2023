@@ -60,7 +60,7 @@ public class ShiftGear extends CommandBase {
     public void execute() {
         SmartDashboard.putBoolean("Button Toggled?",m_buttonToggled);
         
-        m_buttonToggled = RobotContainer.getInstance().getdriverController().getLeftBumper();
+
         if(m_buttonToggled){
             m_gearShift.shift1();
         } else {

@@ -60,6 +60,17 @@ public class HaloDrive extends CommandBase {
 
     // Called every time the scheduler runs while the command is scheduled.
     
+
+    private double deadband(double n, double deadband){
+        if (Math.abs(n) < deadband)
+        {
+            return 0;
+        }
+        return n;
+    }
+
+
+
     public void drive() {
 
         SmartDashboard.putBoolean("driving", true);
@@ -75,28 +86,44 @@ public class HaloDrive extends CommandBase {
         double leftSpeed = RobotContainer.getInstance().getdriverController().getRawAxis(1);
         double rightSpeed = RobotContainer.getInstance().getdriverController().getRawAxis(5);
 
-        double deadband = 0.2;
-        if (Math.abs(leftSpeed) < deadband)
-        {
-            leftSpeed = 0;
+        double rotation = RobotContainer.getInstance().getdriverController().getRawAxis(4);
+
+        rotation = deadband(rotation, .1);
+
+        rotation = Math.pow(rotation, 9);
+
+/*      this is for tryin to do an arcade drive with tank drive method still
+        if(rotation > 0){
+            rightSpeed += rotation;
         }
-        if(Math.abs (rightSpeed) < deadband)
-        { 
-            rightSpeed = 0;
+        if(rotation < 0){
+            leftSpeed += -1*rotation;
         }
+*/
+        //rotation *= 0.7;
+
+        leftSpeed = deadband(leftSpeed, .2);
+        rightSpeed = deadband(rightSpeed, 0.2);
+        
         //XboxController m_hid = new XboxController(0);
         //m_hid.setRumble(GenericHID.RumbleType.kBothRumble, 1.0);
             
         
             
         // This will delinearize the driving
-        int exponent = 5;
+        int exponent = 9;
         rightSpeed = Math.pow(rightSpeed , exponent);
         leftSpeed = Math.pow(leftSpeed , exponent);
 
         SmartDashboard.putNumber("left trigger", RobotContainer.getInstance().getdriverController().getLeftTriggerAxis());
             
 //right arrow turns right, left arrow turns left
+
+
+if (RobotContainer.getInstance().getdriverController().getLeftTriggerAxis() > 0.2){finesse = .5;}  
+        leftSpeed *= finesse;
+        rightSpeed *= finesse;
+       // rotation *= finesse;     see if this works
 
         //right if the dpad (pov) is top left, middle left, or bottom left
         if(pov > 40  && pov < 140){
@@ -107,14 +134,19 @@ public class HaloDrive extends CommandBase {
         }else if(pov > 220 && pov < 275){
             leftSpeed = -.3;
             rightSpeed = .3;
+        }else if(pov > 275 || pov < 40 && pov != -1){
+            leftSpeed = .3;
+            rightSpeed = .3;
+        }else if(pov > 140 && pov < 220){
+            leftSpeed = -.3;
+            rightSpeed = -.3;
         }
 
 
-
-        if (RobotContainer.getInstance().getdriverController().getLeftTriggerAxis() > 0.2){finesse = .5;}  
-        leftSpeed *= finesse;
-        rightSpeed *= finesse;
-        m_driveTrain.driveTank(leftSpeed, rightSpeed);
+        //uncomment/comment based on if you want arcade drive or tank
+        
+       // m_driveTrain.driveTank(leftSpeed, rightSpeed);
+       m_driveTrain.driveArcade(leftSpeed, rotation);
     }   
     public void levelSelf()
     {
