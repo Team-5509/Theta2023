@@ -27,10 +27,16 @@ public class DriveXFeet extends PIDCommand{
         this.driveTrain = DriveTrain;
     }
     
+    
     @Override
 
     public void initialize(){
         driveTrain.ResetEncoders();
+        //6.6/0.0110643577=596.51;  
+        //6.6=0.0110643577*596.51;
+        //1.5/0.0110643577=135.57;
+        //90.3803029=1/0.0110643577
+        //11ft to move from ends of scoring zone (y axis)
     }
 
     @Override
