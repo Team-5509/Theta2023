@@ -67,10 +67,10 @@ public class DriveTrain extends SubsystemBase {
      secondDifferentialDrive = new DifferentialDrive(secondLeftMotor, secondRightMotor);
 
 
-     firstLeftMotor.setIdleMode(IdleMode.kBrake);
-     secondLeftMotor.setIdleMode(IdleMode.kBrake);
-     firstRightMotor.setIdleMode(IdleMode.kBrake);
-     secondRightMotor.setIdleMode(IdleMode.kBrake);
+     firstLeftMotor.setIdleMode(IdleMode.kCoast);
+     secondLeftMotor.setIdleMode(IdleMode.kCoast);
+     firstRightMotor.setIdleMode(IdleMode.kCoast);
+     secondRightMotor.setIdleMode(IdleMode.kCoast);
     }
     public void ResetEncoders(){
         firstLeftMotor.getEncoder().setPosition(0);
@@ -93,8 +93,8 @@ public class DriveTrain extends SubsystemBase {
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
     public void driveTank(double leftSpeed, double rightSpeed){
-        firstDifferentialDrive.arcadeDrive(leftSpeed, rightSpeed);
-        secondDifferentialDrive.arcadeDrive(leftSpeed, rightSpeed);
+        firstDifferentialDrive.tankDrive(leftSpeed, rightSpeed);
+        secondDifferentialDrive.tankDrive(leftSpeed, rightSpeed);
     }
     public void driveArcade(double leftSpeed, double rotationSpeed){
         firstDifferentialDrive.arcadeDrive(leftSpeed, rotationSpeed);
