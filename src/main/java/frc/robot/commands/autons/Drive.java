@@ -5,7 +5,7 @@ import frc.robot.subsystems.DriveTrain;
 
 public class Drive extends SequentialCommandGroup{
     public Drive(DriveTrain drivetrain){
-        new DriveXFeet(11, drivetrain);
+        new DriveXFeet(6, drivetrain);
     }
     
 }
