@@ -130,44 +130,58 @@ public class HaloDrive extends CommandBase {
 if (RobotContainer.getInstance().getdriverController().getLeftTriggerAxis() > 0.2){finesse = .5;}  
         leftSpeed *= finesse;
         rightSpeed *= finesse;
-       // rotation *= finesse;     see if this works
+       rotation *= finesse;
 
-        //right if the dpad (pov) is top left, middle left, or bottom left
-        if(pov > 40  && pov < 140){
-            leftSpeed = .3;
-            rightSpeed = -.3;
-            
-            //left if the dpad (pov) is top right, middle right, or bottom right
-        }else if(pov > 220 && pov < 275){
-            leftSpeed = -.3;
-            rightSpeed = .3;
-        }else if(pov > 275 || pov < 40 && pov != -1){
-            leftSpeed = .3;
-            rightSpeed = .3;
-        }else if(pov > 140 && pov < 220){
-            leftSpeed = -.3;
-            rightSpeed = -.3;
-        }
+        
 
         //acceleration curve
 
         SmartDashboard.putNumber("before speed", currentSpeed);
         SmartDashboard.putNumber("input", leftSpeed);
 
-        currentSpeed = updateValues(currentSpeed, leftSpeed);
+        currentSpeed = linearAcceleration(currentSpeed, leftSpeed);
         SmartDashboard.putNumber("after speed", currentSpeed);
         
         leftSpeed = currentSpeed;
         rightSpeed = currentSpeed;
 
-        rotation = updateValues(currentRotation, rotation);
+        //rotation = updateValues(currentRotation, rotation);
+
+        
+        
+        double dpadSpeed = 0.62;
+        dpadSpeed *= finesse;
+        //right if the dpad (pov) is top left, middle left, or bottom left
+        if(pov > 40  && pov < 140){
+            m_driveTrain.driveTank(dpadSpeed, -dpadSpeed);
+            leftSpeed = .3;
+            rightSpeed = -.3;
+            
+            //left if the dpad (pov) is top right, middle right, or bottom right
+        }else if(pov > 220 && pov < 275){
+            m_driveTrain.driveTank(-dpadSpeed, dpadSpeed);
+
+        }else if(pov > 275 || pov < 40 && pov != -1){
+            m_driveTrain.driveTank(-dpadSpeed, -dpadSpeed);
+
+        }else if(pov > 140 && pov < 220){
+            m_driveTrain.driveTank(dpadSpeed, dpadSpeed);
+
+        }
+        else{
+            m_driveTrain.driveArcade(currentSpeed, rotation);
+        }
+
+
+
+
 
 
         //uncomment/comment based on if you want arcade drive or tank
         
        // m_driveTrain.driveTank(leftSpeed, rightSpeed);
        
-       m_driveTrain.driveArcade(currentSpeed, rotation);
+
     }   
     public void levelSelf()
     {
@@ -187,12 +201,35 @@ if (RobotContainer.getInstance().getdriverController().getLeftTriggerAxis() > 0.
         m_driveTrain.driveTank(speed, speed);
     }
 
+    private double exponentialAcceleration(double speed, double input){
+        double difference = input - speed;
 
-    private double updateValues(double speed, double input){
+        Math.pow(difference, 2.2);
+        
+        if(input > speed){
+            return difference;
+        }
+
+        if(input < speed){
+            return -difference;
+        }
+
+        return input;
+    }
+
+    private double linearAcceleration(double speed, double input){
        double acceleration = 0.01;
-        double decceleration = 0.1;
+        double decceleration = 0.08;
+     
+
+
+
+
        //+ needs to speed up, - needs to slow down
        double difference = input - speed;
+
+ 
+
 
 
         if((speed > -0.1 && speed < 0.1)){

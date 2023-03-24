@@ -20,6 +20,7 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import com.revrobotics.CANSparkMax.*;
@@ -81,6 +82,12 @@ public class DriveTrain extends SubsystemBase {
     public void periodic() {
         double FLTicks = firstLeftMotor.getEncoder().getPosition();
         // This method will be called once per scheduler run
+
+        SmartDashboard.putNumber("id 1", firstLeftMotor.getBusVoltage());
+        SmartDashboard.putNumber("id 2", secondLeftMotor.getBusVoltage());
+        SmartDashboard.putNumber("id 3", firstRightMotor.getBusVoltage());
+        SmartDashboard.putNumber("id 4", secondRightMotor.getBusVoltage());
+
 
     }
 

@@ -62,8 +62,8 @@ public class FlipWrist extends CommandBase {
     public void execute() {
         double speed = 0;
        
-        boolean up = RobotContainer.getInstance().getauxController().getRightBumper();
-        boolean down = RobotContainer.getInstance().getauxController().getLeftBumper();
+        boolean up = RobotContainer.getInstance().getauxController().getLeftTriggerAxis() > 0.1;
+        boolean down = RobotContainer.getInstance().getauxController().getRightTriggerAxis() > 0.1;
 
         if(up){
             speed = .9;
