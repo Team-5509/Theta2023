@@ -61,35 +61,62 @@ public class DriveTrain extends SubsystemBase {
      secondLeftMotor = new CANSparkMax(2, MotorType.kBrushless);
      firstRightMotor = new CANSparkMax(3, MotorType.kBrushless);
      secondRightMotor = new CANSparkMax(4, MotorType.kBrushless);
+
+     firstLeftMotor.clearFaults();
+     secondLeftMotor.clearFaults();
+     firstRightMotor.clearFaults();
+     secondRightMotor.clearFaults();
+
      ResetEncoders();
      firstRightMotor.setInverted(true);
      secondRightMotor.setInverted(true);
+
      firstLeftMotor.setInverted(false);
      secondLeftMotor.setInverted(false);
-     firstDifferentialDrive = new DifferentialDrive(firstLeftMotor, firstRightMotor);
-     secondDifferentialDrive = new DifferentialDrive(secondLeftMotor, secondRightMotor);
-
 
      firstLeftMotor.setIdleMode(IdleMode.kCoast);
      secondLeftMotor.setIdleMode(IdleMode.kCoast);
      firstRightMotor.setIdleMode(IdleMode.kCoast);
      secondRightMotor.setIdleMode(IdleMode.kCoast);
+
+        secondRightMotor.follow(firstRightMotor, false);
+        secondLeftMotor.follow(firstLeftMotor,false);
+
+     firstDifferentialDrive = new DifferentialDrive(firstLeftMotor, firstRightMotor);
+     //secondDifferentialDrive = new DifferentialDrive(secondLeftMotor, secondRightMotor);
+
+
+
     }
     public void ResetEncoders(){
         firstLeftMotor.getEncoder().setPosition(0);
     }
     
+    public void setBrakeMode(){
+    firstLeftMotor.setIdleMode(IdleMode.kBrake);
+     secondLeftMotor.setIdleMode(IdleMode.kBrake);
+     firstRightMotor.setIdleMode(IdleMode.kBrake);
+     secondRightMotor.setIdleMode(IdleMode.kBrake);
+    }
+
+    public void setCoastMode(){
+        firstLeftMotor.setIdleMode(IdleMode.kCoast);
+         secondLeftMotor.setIdleMode(IdleMode.kCoast);
+         firstRightMotor.setIdleMode(IdleMode.kCoast);
+         secondRightMotor.setIdleMode(IdleMode.kCoast);
+        }
 
     @Override
     public void periodic() {
         double FLTicks = firstLeftMotor.getEncoder().getPosition();
         SmartDashboard.putNumber("FLTicks", FLTicks);
         // This method will be called once per scheduler run
-
-        SmartDashboard.putNumber("id 1", firstLeftMotor.getBusVoltage());
-        SmartDashboard.putNumber("id 2", secondLeftMotor.getBusVoltage());
-        SmartDashboard.putNumber("id 3", firstRightMotor.getBusVoltage());
-        SmartDashboard.putNumber("id 4", secondRightMotor.getBusVoltage());
+    /* 
+        SmartDashboard.putNumber("id 1", firstLeftMotor.getAppliedOutput());
+        SmartDashboard.putNumber("id 2", secondLeftMotor.getAppliedOutput());
+        SmartDashboard.putNumber("id 3", firstRightMotor.getAppliedOutput());
+        SmartDashboard.putNumber("id 4", secondRightMotor.getAppliedOutput());
+        */
 
 
     }
@@ -104,16 +131,17 @@ public class DriveTrain extends SubsystemBase {
     // here. Call these from Commands.
     public void driveTank(double leftSpeed, double rightSpeed){
         firstDifferentialDrive.tankDrive(leftSpeed, rightSpeed);
-        secondDifferentialDrive.tankDrive(leftSpeed, rightSpeed);
+        //secondDifferentialDrive.tankDrive(leftSpeed, rightSpeed);
     }
+
     public void driveArcade(double leftSpeed, double rotationSpeed){
         firstDifferentialDrive.arcadeDrive(leftSpeed, rotationSpeed);
-        secondDifferentialDrive.arcadeDrive(leftSpeed, rotationSpeed);
+        //secondDifferentialDrive.arcadeDrive(leftSpeed, rotationSpeed);
     }
 
     public void stop(){
         firstDifferentialDrive.tankDrive(0, 0);
-        secondDifferentialDrive.tankDrive(0, 0);
+       // secondDifferentialDrive.tankDrive(0, 0);
     }
     public double distanceTraveledInFeet(){
         return firstLeftMotor.getEncoder().getPosition()*FEETPERTICK;

@@ -51,6 +51,7 @@ public class NavX extends SubsystemBase {
         SmartDashboard.putNumber("pitch", ahrs.getPitch());
         SmartDashboard.putNumber("roll", ahrs.getRoll());
 
+
     } 
 
     public float getPitch(){
