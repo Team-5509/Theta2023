@@ -17,6 +17,7 @@ import frc.robot.commands.*;
 
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -44,10 +45,10 @@ public class ClawWrist extends SubsystemBase {
     int wristTicksMax = 1000; //Fix this value
     int wristTicksMin = 0; //Fix this too
 
-    private WPI_TalonSRX wrist; 
+    private WPI_VictorSPX wrist; 
     public ClawWrist() {
         //wrist.configFactoryDefault();
-        wrist = new WPI_TalonSRX(5);
+        wrist = new WPI_VictorSPX(5);
         wrist.setNeutralMode(NeutralMode.Brake);
         
         //wrist.getSelectedSensorPosition();
@@ -73,8 +74,13 @@ public class ClawWrist extends SubsystemBase {
 
     public void manualWrist(double wristInput){
         wrist.set(wristInput);
+        
     }
 
+    public double getWrist(){
+        return wrist.get();
+    }
+/*
     public void runWrist(double wristInput){
         if (wrist.getSelectedSensorPosition() >= wristTicksMax && wristInput > 0 
         || 
@@ -84,6 +90,7 @@ public class ClawWrist extends SubsystemBase {
             wrist.set(wristInput);
         }
     }
+    */
 
     public void stop(){
         wrist.set(0);

@@ -86,8 +86,9 @@ private final XboxController driverController = new XboxController(0);
     m_airCompressor.setDefaultCommand(new CompressorOn( m_airCompressor ));
     m_pnuematicClaw.setDefaultCommand(new RunClaw(false, m_pnuematicClaw));
     m_armExtension.setDefaultCommand(new RunExtension( m_armExtension ));
+    
     m_fourBar.setDefaultCommand(new RunFourBar( m_fourBar ));
-    m_clawWrist.setDefaultCommand(new FlipWrist( m_clawWrist ));
+    m_clawWrist.setDefaultCommand(new RunWrist( m_clawWrist ));
     m_driveTrain.setDefaultCommand(new HaloDrive( m_driveTrain ));
 
 
