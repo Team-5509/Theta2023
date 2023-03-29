@@ -45,10 +45,10 @@ public class ClawWrist extends SubsystemBase {
     int wristTicksMax = 1000; //Fix this value
     int wristTicksMin = 0; //Fix this too
 
-    private WPI_VictorSPX wrist; 
+    private WPI_TalonSRX wrist; 
     public ClawWrist() {
         //wrist.configFactoryDefault();
-        wrist = new WPI_VictorSPX(5);
+        wrist = new WPI_TalonSRX(5);
         wrist.setNeutralMode(NeutralMode.Brake);
         
         //wrist.getSelectedSensorPosition();
