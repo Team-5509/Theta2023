@@ -76,7 +76,8 @@ public class HaloDrive extends CommandBase {
 
 
     public void drive() {
-
+        navx.displayAxis();
+/*
         if(RobotContainer.getInstance().getdriverController().getRawAxis(3) > 0.2){
             brake = true;
         }else{
@@ -92,7 +93,7 @@ public class HaloDrive extends CommandBase {
             m_driveTrain.setCoastMode();
             currentlyBraking = false;
         }
-
+*/
 
 /*
 
@@ -331,8 +332,8 @@ if (RobotContainer.getInstance().getdriverController().getLeftTriggerAxis() > 0.
     @Override
     public void execute() {
         drive();
-        ticks++;
-        SmartDashboard.putNumber("ticks", ticks);
+        //ticks++;
+        //SmartDashboard.putNumber("ticks", ticks);
       /* 
         SmartDashboard.putBoolean("self level activated", RobotContainer.getInstance().getdriverController().getRightBumper());
         if(RobotContainer.getInstance().getdriverController().getRightBumper())

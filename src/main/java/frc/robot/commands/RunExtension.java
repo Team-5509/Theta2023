@@ -69,7 +69,7 @@ if(stickInput < 0){
     speed *= -1;
 }
 
-        if(stickInput > -.01 && stickInput < 0.1){
+        if(stickInput > -.2 && stickInput < 0.2){
             speed = 0;
         }
 

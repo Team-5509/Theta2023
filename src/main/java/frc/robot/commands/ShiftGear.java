@@ -55,10 +55,22 @@ public class ShiftGear extends CommandBase {
     public void initialize() {
     }
 
+    private void updateButtonPressed(){
+        boolean pressed = RobotContainer.getInstance().getdriverController().getLeftBumper();
+        if(!pressed){
+            m_buttonToggled = false;
+        }
+        else{
+            m_buttonToggled = true;
+        }
+    }
+
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-
+        //shift 1 might be high gear
+        updateButtonPressed();
+        
         if(m_buttonToggled){
             m_gearShift.shift1();
         } else {

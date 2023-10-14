@@ -27,7 +27,7 @@ import frc.robot.subsystems.ClawWrist;
  *
  */
 public class RunWrist extends CommandBase {
-    DigitalInput wristEncoder = new DigitalInput(4);
+    DigitalInput wristEncoder = new DigitalInput(1);
     
     int wristTicks = 0;
     int minTick = 0;

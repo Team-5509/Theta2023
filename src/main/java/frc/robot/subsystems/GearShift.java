@@ -69,7 +69,7 @@ doubleSolenoid2 = new DoubleSolenoid(0, PneumaticsModuleType.CTREPCM, 2, 3);
     }
 
     public void shift2() {
-        doubleSolenoid2.set(Value.kForward);
+        doubleSolenoid2.set(Value.kForward);//maybe low gear
     }
 }
 

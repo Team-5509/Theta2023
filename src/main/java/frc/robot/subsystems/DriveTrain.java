@@ -20,6 +20,7 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
@@ -50,6 +51,8 @@ public class DriveTrain extends SubsystemBase {
     private CANSparkMax secondRightMotor;
     private DifferentialDrive firstDifferentialDrive;
     private DifferentialDrive secondDifferentialDrive;
+    private MotorControllerGroup leftGroup;
+    private MotorControllerGroup rightGroup;
     /**
     *
     */
@@ -79,11 +82,16 @@ public class DriveTrain extends SubsystemBase {
      firstRightMotor.setIdleMode(IdleMode.kCoast);
      secondRightMotor.setIdleMode(IdleMode.kCoast);
 
-        secondRightMotor.follow(firstRightMotor, false);
-        secondLeftMotor.follow(firstLeftMotor,false);
+        //secondRightMotor.follow(firstRightMotor, false);
+        //secondLeftMotor.follow(firstLeftMotor,false);
 
-     firstDifferentialDrive = new DifferentialDrive(firstLeftMotor, firstRightMotor);
+        leftGroup = new MotorControllerGroup(firstLeftMotor, secondLeftMotor);
+        rightGroup = new MotorControllerGroup(firstRightMotor, secondRightMotor);
+
+
+     firstDifferentialDrive = new DifferentialDrive(leftGroup, rightGroup);
      //secondDifferentialDrive = new DifferentialDrive(secondLeftMotor, secondRightMotor);
+
 
 
 
@@ -136,12 +144,12 @@ public class DriveTrain extends SubsystemBase {
 
     public void driveArcade(double leftSpeed, double rotationSpeed){
         firstDifferentialDrive.arcadeDrive(leftSpeed, rotationSpeed);
-        //secondDifferentialDrive.arcadeDrive(leftSpeed, rotationSpeed);
+       // secondDifferentialDrive.arcadeDrive(leftSpeed, rotationSpeed);
     }
 
     public void stop(){
         firstDifferentialDrive.tankDrive(0, 0);
-       // secondDifferentialDrive.tankDrive(0, 0);
+        //secondDifferentialDrive.tankDrive(0, 0);
     }
     public double distanceTraveledInFeet(){
         return firstLeftMotor.getEncoder().getPosition()*FEETPERTICK;
